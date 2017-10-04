@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class Customer {
 
-    public static final int MIN_SAVINGS_BALANCE = 100;
-
     private Map<Integer, Account> accounts = new HashMap<>();
 
     public void addAccount(Account account) {
@@ -49,19 +47,21 @@ public class Customer {
         Account srcAccount = accounts.get(srcId);
         Account dstAccount = accounts.get(destId);
 
+        double originalBalance = srcAccount.getBalance();
+
         // if there is no balance in src account do nothing
         if (srcAccount.getBalance() < amount) {
             return;
         }
 
-        // if src account is savings, we need to keep a minimum balance
-        if (srcAccount.getAccountType() == AccountType.SAVINGS &&
-                srcAccount.getBalance() < MIN_SAVINGS_BALANCE + amount) {
-            return;
-        }
-
+        // Try to debit the account
         srcAccount.debit(amount);
-        dstAccount.credit(amount);
+
+        // Only if the amount is debited from the source account is the amount
+        // credited to the destination account
+        if (originalBalance != srcAccount.getBalance()) {
+            dstAccount.credit(amount);
+        }
 
     }
 
