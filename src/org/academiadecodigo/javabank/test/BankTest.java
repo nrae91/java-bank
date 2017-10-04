@@ -26,10 +26,10 @@ public class BankTest {
         Customer c1 = new Customer();
         Customer c2 = new Customer();
 
-        c1.addAccount(a1);
-        c1.addAccount(a2);
-        c2.addAccount(a3);
-        c2.addAccount(a4);
+        c1.requestAccount(a1);
+        c1.requestAccount(a2);
+        c2.requestAccount(a3);
+        c2.requestAccount(a4);
 
         bank.addCustomer(c1);
         bank.addCustomer(c2);

@@ -1,14 +1,13 @@
 package org.academiadecodigo.javabank.test;
 
-import org.academiadecodigo.javabank.domain.CheckingAccount;
-import org.academiadecodigo.javabank.domain.Customer;
-import org.academiadecodigo.javabank.domain.SavingsAccount;
+import org.academiadecodigo.javabank.domain.*;
 
 public class CustomerTest {
 
     public boolean test() {
 
         Customer customer = new Customer();
+        Manager manager = new Manager();
 
         // customer should start with zero balance
         if (customer.getBalance() != 0) {
@@ -21,8 +20,8 @@ public class CustomerTest {
         a2.credit(120);
 
         // customer balance should equal sum of all accounts balance
-        customer.addAccount(a1);
-        customer.addAccount(a2);
+        customer.requestAccount(manager, AccountType.CHECKING);
+        customer.requestAccount(manager, AccountType.SAVINGS);
         if (customer.getBalance() != 220) {
             return false;
         }

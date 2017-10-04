@@ -7,7 +7,8 @@ public class Customer {
 
     private Map<Integer, Account> accounts = new HashMap<>();
 
-    public void addAccount(Account account) {
+    public void requestAccount(Manager manager, AccountType accountType) {
+        Account account = manager.openAccount(this, accountType);
         accounts.put(account.getId(), account);
     }
 
