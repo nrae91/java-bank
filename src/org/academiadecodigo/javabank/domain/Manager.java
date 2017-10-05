@@ -9,7 +9,7 @@ public class Manager {
     private Map<Integer, Account> allAccounts = new HashMap<>();
 
     // Methods
-    public Account openAccount(Costumer costumer, AccountType accountType){
+    public Account openAccount(Customer customer, AccountType accountType){
 
         if(accountType.equals(AccountType.SAVINGS)){
             return new SavingsAccount(1);
