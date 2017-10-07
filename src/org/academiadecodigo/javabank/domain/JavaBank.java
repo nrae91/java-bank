@@ -2,41 +2,42 @@ package org.academiadecodigo.javabank.domain;
 
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerSetInputScanner;
-import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
-import org.academiadecodigo.javabank.MainMenu;
-import org.academiadecodigo.javabank.operations.Action;
+import org.academiadecodigo.javabank.application.Action;
+import org.academiadecodigo.javabank.application.MainMenu;
 import org.academiadecodigo.javabank.managers.AccountManager;
-import sun.applet.Main;
 
 public class JavaBank {
 
     private Bank bank;
-    private MainMenu mainMenu;
+    private AccountManager accountManager;
 
     public static void main(String[] args) {
+
         JavaBank javaBank = new JavaBank();
         MainMenu mainMenu = new MainMenu();
         javaBank.boot();
-        Customer customer = javaBank.getCustomer();
-        Action action = mainMenu.open(customer);
-        action.execute();
+        Customer customer = javaBank.loadCustomer();
+        Action action = mainMenu.open();
+        action.execute(customer);
     }
 
     private void boot() {
-        this.bank = new Bank(new AccountManager());
+        this.accountManager = new AccountManager();
+        this.bank = new Bank(this.accountManager);
     }
 
-    private Customer getCustomer(){
+    private Customer loadCustomer() {
+
+        // Not supposed to be here!!!!
+        bank.addCustomer(new Customer(1, "Nuno"));
+        bank.addCustomer(new Customer(2, "Diogo"));
 
         Prompt prompt = new Prompt(System.in, System.out);
 
         IntegerSetInputScanner scanner = new IntegerSetInputScanner(bank.getCustomerIds());
 
-        return this.bank.getCustomer(prompt.getUserInput(scanner));
-    }
+        int userInput = prompt.getUserInput(scanner);
 
-
-    public Bank getBank() {
-        return bank;
+        return bank.getCustomer(userInput);
     }
 }

@@ -1,9 +1,7 @@
-package org.academiadecodigo.javabank;
+package org.academiadecodigo.javabank.application;
 
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
-import org.academiadecodigo.javabank.domain.Customer;
-import org.academiadecodigo.javabank.operations.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,9 +9,9 @@ import java.util.Map;
 public class MainMenu {
 
     private String[] options = {"Deposit", "Withdraw", "Transfer", "Display Accounts", "Create Account"};
-    private Map<Integer,Action> operations;
+    private Map<Integer,Action> operations = new HashMap<>();
 
-    public Action open(Customer customer) {
+    public Action open() {
 
         buildOperationsMap();
 
