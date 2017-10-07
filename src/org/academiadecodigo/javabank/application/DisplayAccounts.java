@@ -11,10 +11,10 @@ public class DisplayAccounts implements Action {
     public void execute(Customer customer) {
         Map<Integer,Account> accounts = customer.getAccounts();
         System.out.println();
-        System.out.println("\nID      TYPE        BALANCE");
+        System.out.println("\nID    TYPE        BALANCE");
         System.out.println("---------------------------");
         for (Account account : accounts.values()){
-            System.out.println(account.getId() + "  " + account.getAccountType() + "    " + account.getBalance());
+            System.out.println(" " + account.getId() + "    " + account.getAccountType() + "    " + account.getBalance());
         }
     }
 }
