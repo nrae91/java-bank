@@ -5,7 +5,6 @@ import org.academiadecodigo.bootcamp.scanners.integer.IntegerSetInputScanner;
 import org.academiadecodigo.javabank.application.Action;
 import org.academiadecodigo.javabank.application.Continue;
 import org.academiadecodigo.javabank.application.MainMenu;
-import org.academiadecodigo.javabank.domain.account.AccountType;
 import org.academiadecodigo.javabank.managers.AccountManager;
 
 public class JavaBank {
@@ -38,8 +37,6 @@ public class JavaBank {
         bank.addCustomer(new Customer(2, "Diogo"));
         bank.getCustomer(1).setAccountManager(this.accountManager);
         bank.getCustomer(2).setAccountManager(this.accountManager);
-        bank.getCustomer(1).openAccount(AccountType.CHECKING);
-        accountManager.deposit(1,100);
     }
 
     private Customer loadCustomer() {

@@ -17,7 +17,7 @@ public class Deposit implements Action {
 
         IntegerSetInputScanner scanner = new IntegerSetInputScanner(customer.getAccounts().keySet());
 
-        scanner.setMessage("Type the account ID in which you wish to deposit: ");
+        scanner.setMessage("\nType the account ID in which you wish to deposit: ");
 
         int dstId = prompt.getUserInput(scanner);
 
