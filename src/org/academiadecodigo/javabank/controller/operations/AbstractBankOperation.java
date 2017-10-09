@@ -10,6 +10,6 @@ public abstract class AbstractBankOperation implements Operation {
 
     public AbstractBankOperation(BankApplication bankApplication) {
         this.bankApplication = bankApplication;
-        customer = bankApplication.getBank().getCustomer(bankApplication.getAcessingCustomerId());
+        customer = bankApplication.getBank().getCustomer(bankApplication.getAccessingCustomerId());
     }
 }

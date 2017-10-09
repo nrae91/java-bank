@@ -18,7 +18,7 @@ public class BankApplication {
     private Map<Integer, Operation> operationsMap;
 
     private Bank bank;
-    private int acessingCustomerId;
+    private int accessingCustomerId;
 
     public BankApplication(Bank bank) {
         this.bank = bank;
@@ -29,7 +29,7 @@ public class BankApplication {
 
         mainMenu = buildMainMenu();
 
-        acessingCustomerId = scanCustomerId();
+        accessingCustomerId = scanCustomerId();
         operationsMap = buildOperationsMap();
         menuLoop();
 
@@ -79,8 +79,8 @@ public class BankApplication {
 
     }
 
-    public int getAcessingCustomerId() {
-        return acessingCustomerId;
+    public int getAccessingCustomerId() {
+        return accessingCustomerId;
     }
 
     public Bank getBank() {
