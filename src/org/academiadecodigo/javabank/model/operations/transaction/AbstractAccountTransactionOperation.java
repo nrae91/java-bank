@@ -1,12 +1,14 @@
 package org.academiadecodigo.javabank.model.operations.transaction;
 
 import org.academiadecodigo.bootcamp.Prompt;
-import org.academiadecodigo.bootcamp.precisiondouble.DoubleInputScanner;
+import org.academiadecodigo.bootcamp.scanners.precisiondouble.DoubleInputScanner;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerSetInputScanner;
 import org.academiadecodigo.javabank.view.BankApplication;
 import org.academiadecodigo.javabank.view.Messages;
 import org.academiadecodigo.javabank.model.operations.AbstractBankOperation;
 import org.academiadecodigo.javabank.model.managers.AccountManager;
+
+import java.util.HashSet;
 
 public abstract class AbstractAccountTransactionOperation extends AbstractBankOperation {
 
@@ -22,7 +24,7 @@ public abstract class AbstractAccountTransactionOperation extends AbstractBankOp
     @Override
     public void execute() {
 
-        if (customer.getAccountIds().size() == 0) {
+        if (!hasAccounts()) {
             System.out.println("\n" + Messages.ERROR_NO_ACCOUNT);
             return;
         }
@@ -43,11 +45,16 @@ public abstract class AbstractAccountTransactionOperation extends AbstractBankOp
         return builder.toString();
     }
 
+    protected boolean hasAccounts() {
+        return customer.getAccountIds().size() > 0;
+    }
+
     protected int scanAccount() {
 
         IntegerSetInputScanner scanner = new IntegerSetInputScanner(customer.getAccountIds());
         scanner.setMessage(Messages.CHOOSE_ACCOUNT);
         scanner.setError(Messages.ERROR_INVALID_ACCOUNT);
+
         return prompt.getUserInput(scanner);
 
     }
