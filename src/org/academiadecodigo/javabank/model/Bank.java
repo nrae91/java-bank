@@ -47,8 +47,12 @@ public class Bank {
         return accountManager;
     }
 
-    public void setAccessingCostumerId(int accessingCostumerId) {
+    public void setAccessingCustomerId(int accessingCostumerId) {
         this.accessingCostumerId = accessingCostumerId;
+    }
+
+    public Customer getAccessingCustomer(){
+        return getCustomer(accessingCostumerId);
     }
 }
 

@@ -27,7 +27,7 @@ public class LoginController implements Controller {
     }
 
     public void onAccessingCustomer(int customerId) {
-        bank.setAccessingCostumerId(customerId);
+        bank.setAccessingCustomerId(customerId);
         nextController.init();
     }
 
