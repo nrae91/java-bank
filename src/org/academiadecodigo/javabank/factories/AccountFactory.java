@@ -1,4 +1,4 @@
-package org.academiadecodigo.javabank.model.factories;
+package org.academiadecodigo.javabank.factories;
 
 import org.academiadecodigo.javabank.model.account.*;
 import org.academiadecodigo.javabank.model.account.CheckingAccount;

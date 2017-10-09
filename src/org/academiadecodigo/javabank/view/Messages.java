@@ -11,6 +11,7 @@ public class Messages {
     public final static String MENU_QUIT = "Quit";
 
     public final static String OPEN_ACCOUNTS = "You have the following accounts: ";
+    public final static String CHOOSE_ACCOUNT_TYPE = "Which type of account do you wish to create?";
     public final static String CREATED_ACCOUNT = "Created account for ";
     public final static String CHOOSE_ACCOUNT = "Please insert your account number: ";
     public final static String CHOOSE_AMOUNT = "Please insert amount: ";

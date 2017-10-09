@@ -3,7 +3,7 @@ package org.academiadecodigo.javabank.test;
 import org.academiadecodigo.javabank.model.account.Account;
 import org.academiadecodigo.javabank.model.account.AccountType;
 import org.academiadecodigo.javabank.model.account.SavingsAccount;
-import org.academiadecodigo.javabank.model.managers.AccountManager;
+import org.academiadecodigo.javabank.controller.managers.AccountManager;
 
 public class AccountManagerTest {
 

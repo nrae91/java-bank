@@ -3,9 +3,9 @@ package org.academiadecodigo.javabank.view;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerSetInputScanner;
-import org.academiadecodigo.javabank.model.operations.*;
-import org.academiadecodigo.javabank.model.operations.transaction.DepositOperation;
-import org.academiadecodigo.javabank.model.operations.transaction.WithdrawOperation;
+import org.academiadecodigo.javabank.controller.operations.*;
+import org.academiadecodigo.javabank.controller.operations.transaction.DepositOperation;
+import org.academiadecodigo.javabank.controller.operations.transaction.WithdrawOperation;
 import org.academiadecodigo.javabank.model.Bank;
 
 import java.util.HashMap;

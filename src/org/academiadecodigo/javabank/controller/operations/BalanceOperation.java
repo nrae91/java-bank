@@ -1,4 +1,4 @@
-package org.academiadecodigo.javabank.model.operations;
+package org.academiadecodigo.javabank.controller.operations;
 
 import org.academiadecodigo.javabank.view.BankApplication;
 import org.academiadecodigo.javabank.view.Messages;

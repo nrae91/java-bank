@@ -1,14 +1,12 @@
-package org.academiadecodigo.javabank.model.operations.transaction;
+package org.academiadecodigo.javabank.controller.operations.transaction;
 
 import org.academiadecodigo.bootcamp.Prompt;
 import org.academiadecodigo.bootcamp.scanners.precisiondouble.DoubleInputScanner;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerSetInputScanner;
 import org.academiadecodigo.javabank.view.BankApplication;
 import org.academiadecodigo.javabank.view.Messages;
-import org.academiadecodigo.javabank.model.operations.AbstractBankOperation;
-import org.academiadecodigo.javabank.model.managers.AccountManager;
-
-import java.util.HashSet;
+import org.academiadecodigo.javabank.controller.operations.AbstractBankOperation;
+import org.academiadecodigo.javabank.controller.managers.AccountManager;
 
 public abstract class AbstractAccountTransactionOperation extends AbstractBankOperation {
 

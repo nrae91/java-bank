@@ -1,6 +1,6 @@
 package org.academiadecodigo.javabank.model;
 
-import org.academiadecodigo.javabank.model.managers.AccountManager;
+import org.academiadecodigo.javabank.controller.managers.AccountManager;
 
 import java.util.HashMap;
 import java.util.Set;
