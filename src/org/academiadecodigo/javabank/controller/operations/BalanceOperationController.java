@@ -10,7 +10,6 @@ public class BalanceOperationController implements Controller {
     private View view;
     private Controller nextController;
     private Bank bank;
-    private Customer customer;
 
     @Override
     public void init() {
@@ -29,8 +28,8 @@ public class BalanceOperationController implements Controller {
         nextController.init();
     }
 
-    public void setCustomer() {
-        this.customer = bank.getAccessingCustomer();
+    public Customer getCustomer() {
+        return bank.getAccessingCustomer();
     }
 
     public void setBank(Bank bank) {

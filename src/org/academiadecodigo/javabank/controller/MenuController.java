@@ -6,17 +6,16 @@ import java.util.Map;
 
 public class MenuController implements Controller {
 
-    private Map<Integer, Controller> operationsMap;
+    private Map<Integer, Controller> controllerMap;
     private View view;
-    private Controller nextController;
 
     @Override
     public void init() {
         view.show();
     }
 
-    public void setOperationsMap(Map<Integer, Controller> operationsMap) {
-        this.operationsMap = operationsMap;
+    public void setControllerMap(Map<Integer, Controller> controllerMap) {
+        this.controllerMap = controllerMap;
     }
 
     public void setView(View view) {
@@ -24,7 +23,6 @@ public class MenuController implements Controller {
     }
 
     public void onSelectingOperation(int userInput) {
-        nextController = operationsMap.get(userInput);
-        nextController.init();
+        controllerMap.get(userInput).init();
     }
 }

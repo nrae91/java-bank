@@ -42,13 +42,19 @@ public class BootStrap {
 
         BalanceOperationController balanceOperationController = new BalanceOperationController();
         BalanceOperationView balanceOperationView = new BalanceOperationView();
+        balanceOperationController.setBank(bank);
         balanceOperationController.setView(balanceOperationView);
         balanceOperationController.setNextController(menuController);
-        balanceOperationView.setBank(bank);
         balanceOperationView.setController(balanceOperationController);
 
         DepositOperationController depositOperationController = new DepositOperationController();
         DepositOperationView depositOperationView = new DepositOperationView();
+        depositOperationController.setBank(bank);
+        depositOperationController.setView(depositOperationView);
+        depositOperationController.setNextController(menuController);
+        depositOperationView.setBank(bank);
+        depositOperationView.setPrompt(prompt);
+        depositOperationView.setController(depositOperationController);
 
         WithdrawOperationController withdrawOperationController = new WithdrawOperationController();
         WithdrawOperationView withdrawOperationView = new WithdrawOperationView();
@@ -63,7 +69,7 @@ public class BootStrap {
         map.put(UserOptions.WITHDRAW.getOption(), withdrawOperationController);
         map.put(UserOptions.OPEN_ACCOUNT.getOption(), newAccountOperationController);
 
-        menuController.setOperationsMap(map);
+        menuController.setControllerMap(map);
         menuController.setView(menuView);
         menuView.setController(menuController);
         menuView.setPrompt(prompt);
