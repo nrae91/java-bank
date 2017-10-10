@@ -1,7 +1,6 @@
 package org.academiadecodigo.javabank.model;
 
 import org.academiadecodigo.javabank.model.account.Account;
-import org.academiadecodigo.javabank.model.account.AccountType;
 
 import java.util.*;
 

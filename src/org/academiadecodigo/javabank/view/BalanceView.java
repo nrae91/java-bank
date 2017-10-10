@@ -1,6 +1,7 @@
 package org.academiadecodigo.javabank.view;
 
-import org.academiadecodigo.javabank.model.Bank;
+import org.academiadecodigo.javabank.controller.BalanceController;
+import org.academiadecodigo.javabank.services.CustomerService;
 import org.academiadecodigo.javabank.model.Customer;
 import org.academiadecodigo.javabank.model.account.Account;
 
@@ -9,12 +10,9 @@ import java.util.Set;
 
 public class BalanceView implements View {
 
-    private Bank bank;
-    DecimalFormat df = new DecimalFormat("#.##");
+    private BalanceController controller;
 
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
+    DecimalFormat df = new DecimalFormat("#.##");
 
     @Override
     public void show() {
@@ -23,7 +21,7 @@ public class BalanceView implements View {
 
     private void showBalance() {
 
-        Customer customer = bank.getLoginCustomer();
+        Customer customer = controller.getLoginCustomer();
         System.out.println("\n" + customer.getName() + Messages.VIEW_BALANCE_MESSAGE + "\n");
 
         Set<Account> accounts = customer.getAccounts();
@@ -32,5 +30,9 @@ public class BalanceView implements View {
         }
 
         System.out.println("\n\n" + Messages.VIEW_BALANCE_TOTAL_MESSAGE + df.format(customer.getBalance()));
+    }
+
+    public void setBalanceController(BalanceController controller) {
+        this.controller = controller;
     }
 }
