@@ -1,9 +1,23 @@
 package org.academiadecodigo.javabank.model;
 
-public interface Model {
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-    Integer getId();
+@MappedSuperclass
+public class Model {
 
-    void setId(Integer id);
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
 }

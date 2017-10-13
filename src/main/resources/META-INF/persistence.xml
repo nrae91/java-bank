@@ -8,13 +8,15 @@
             For an in-memory database, this means the content is lost.
             To keep the database open, DB_CLOSE_DELAY=-1 is required
             -->
-            <property name="hibernate.connection.url" value="jdbc:h2:mem:java-bank;DB_CLOSE_DELAY=-1"/>
+            <property name="hibernate.connection.url" value="jdbc:h2:mem:java-bank"/>
             <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.connection.username" value="sa"/>
+            <property name="hibernate.connection.password" value=" "/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
     </persistence-unit>
 
@@ -32,7 +34,7 @@
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
     </persistence-unit>
 
@@ -52,7 +54,7 @@
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hbm2ddl.auto" value="verify"/>
+            <property name="hibernate.hbm2ddl.auto" value="verify"/>
         </properties>
     </persistence-unit>
 </persistence>
