@@ -2,9 +2,11 @@ package org.academiadecodigo.javabank.model;
 
 import org.academiadecodigo.javabank.model.account.Account;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Customer extends AbstractModel {
 
     private String name;

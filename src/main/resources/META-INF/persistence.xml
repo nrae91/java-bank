@@ -1,0 +1,58 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+    <persistence-unit name="dev" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <!--
+            By default, closing the last connection to a database closes the database.
+            For an in-memory database, this means the content is lost.
+            To keep the database open, DB_CLOSE_DELAY=-1 is required
+            -->
+            <property name="hibernate.connection.url" value="jdbc:h2:mem:java-bank;DB_CLOSE_DELAY=-1"/>
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="create"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <!--
+            By default, closing the last connection to a database closes the database.
+            For an in-memory database, this means the content is lost.
+            To keep the database open, DB_CLOSE_DELAY=-1 is required
+            -->
+            <property name="hibernate.connection.url" value="jdbc:h2:mem:java-bank;DB_CLOSE_DELAY=-1"/>
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="create"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="production" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <!--
+            By default, closing the last connection to a database closes the database.
+            For an in-memory database, this means the content is lost.
+            To keep the database open, DB_CLOSE_DELAY=-1 is required
+            -->
+            <property name="hibernate.connection.url" value="jdbc:mysql://novabase.academiadecodigo.org:3306/ne"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.connection.username" value="ne"/>
+            <property name="hibernate.connection.password" value="novabase"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="verify"/>
+        </properties>
+    </persistence-unit>
+</persistence>
