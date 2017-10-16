@@ -2,15 +2,13 @@ package org.academiadecodigo.javabank;
 
 import org.academiadecodigo.javabank.controller.LoginController;
 import org.academiadecodigo.javabank.persistence.H2WebServer;
-import org.academiadecodigo.javabank.services.MockAccountService;
-import org.academiadecodigo.javabank.services.AuthServiceImpl;
-import org.academiadecodigo.javabank.services.MockCustomerService;
+import org.academiadecodigo.javabank.services.*;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.sql.SQLException;
 
-public class App {
+public class AppDev {
 
     public static void main(String[] args) {
 
@@ -21,8 +19,8 @@ public class App {
 
             EntityManagerFactory emf = Persistence.createEntityManagerFactory(Config.PERSISTENCE_UNIT);
 
-            App app = new App();
-            app.bootStrap();
+            AppDev app = new AppDev();
+            app.bootStrap(emf);
 
             emf.close();
             h2WebServer.stop();
@@ -33,12 +31,12 @@ public class App {
 
     }
 
-    private void bootStrap() {
+    private void bootStrap(EntityManagerFactory emf) {
 
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.setAuthService(new AuthServiceImpl());
-        bootstrap.setAccountService(new MockAccountService());
-        bootstrap.setCustomerService(new MockCustomerService());
+        bootstrap.setAccountService(new JpaAccountService(emf));
+        bootstrap.setCustomerService(new JpaCustomerService(emf));
         bootstrap.loadCustomers();
 
         LoginController loginController = bootstrap.wireObjects();

@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AccountServiceImpl implements AccountService {
+public class MockAccountService implements AccountService {
 
     private Map<Integer, Account> accountMap = new HashMap<>();
 

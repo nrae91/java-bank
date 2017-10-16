@@ -5,7 +5,7 @@ import org.academiadecodigo.javabank.model.account.Account;
 
 import java.util.*;
 
-public class CustomerServiceImpl implements CustomerService {
+public class MockCustomerService implements CustomerService {
 
     private Map<Integer, Customer> customerMap = new HashMap<>();
 

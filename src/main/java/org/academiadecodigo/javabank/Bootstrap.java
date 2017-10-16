@@ -6,9 +6,7 @@ import org.academiadecodigo.javabank.controller.transaction.DepositController;
 import org.academiadecodigo.javabank.controller.transaction.WithdrawalController;
 import org.academiadecodigo.javabank.factories.AccountFactory;
 import org.academiadecodigo.javabank.model.Customer;
-import org.academiadecodigo.javabank.services.AccountServiceImpl;
-import org.academiadecodigo.javabank.services.AuthServiceImpl;
-import org.academiadecodigo.javabank.services.CustomerServiceImpl;
+import org.academiadecodigo.javabank.services.*;
 import org.academiadecodigo.javabank.view.*;
 
 import java.util.HashMap;
@@ -17,8 +15,8 @@ import java.util.Map;
 public class Bootstrap {
 
     private AuthServiceImpl authService;
-    private CustomerServiceImpl customerService;
-    private AccountServiceImpl accountService;
+    private CustomerService customerService;
+    private AccountService accountService;
 
     public void loadCustomers() {
 
@@ -110,11 +108,11 @@ public class Bootstrap {
         this.authService = authService;
     }
 
-    public void setCustomerService(CustomerServiceImpl customerService) {
+    public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
     }
 
-    public void setAccountService(AccountServiceImpl accountService) {
+    public void setAccountService(AccountService accountService) {
         this.accountService = accountService;
     }
 }
