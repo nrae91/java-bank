@@ -5,11 +5,7 @@ import org.academiadecodigo.javabank.model.account.Account;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Id;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.transaction.RollbackException;
+import javax.persistence.RollbackException;
 import java.util.*;
 
 public class JpaCustomerService implements CustomerService {
@@ -22,10 +18,6 @@ public class JpaCustomerService implements CustomerService {
 
     @Override
     public void add(Customer customer) {
-
-        if (customer.getId() == null) {
-            customer.setId(getNextId());
-        }
 
         EntityManager em = emf.createEntityManager();
 
@@ -92,10 +84,10 @@ public class JpaCustomerService implements CustomerService {
         try {
 
             // fetch a list of customers with a given name
-            List<Integer> ids = em.createQuery("from Customer.id", Integer.class)
+            List<Integer> ids = em.createQuery("select c.id from Customer c", Integer.class)
                   .getResultList();
 
-            new Set<Integer> IdSet = new HashSet<>(ids);
+            return new HashSet<>();
 
         } finally {
 
@@ -109,7 +101,11 @@ public class JpaCustomerService implements CustomerService {
     @Override
     public double getBalance(int customerId) {
 
-        List<Account> accounts = customerMap.get(customerId).getAccounts();
+        EntityManager em = emf.createEntityManager();
+
+        Customer customer = findById(customerId);
+
+        List<Account> accounts = customer.getAccounts();
 
         double balance = 0;
         for (Account account : accounts) {
@@ -123,8 +119,10 @@ public class JpaCustomerService implements CustomerService {
     @Override
     public Set<Integer> getCustomerAccountNumbers(Integer id) {
 
+        Customer customer = findById(id);
+
         Set<Integer> accountIds = new HashSet<>();
-        List<Account> accountList = customerMap.get(id).getAccounts();
+        List<Account> accountList = customer.getAccounts();
 
         for (Account account : accountList) {
             accountIds.add(account.getId());
@@ -133,7 +131,4 @@ public class JpaCustomerService implements CustomerService {
         return accountIds;
     }
 
-    private Integer getNextId() {
-        return customerMap.isEmpty() ? 1 : Collections.max(customerMap.keySet()) + 1;
-    }
 }
