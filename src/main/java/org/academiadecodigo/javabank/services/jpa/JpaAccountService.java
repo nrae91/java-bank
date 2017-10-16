@@ -9,14 +9,14 @@ import javax.persistence.RollbackException;
 
 public class JpaAccountService extends AbstractJpaService<Account> implements AccountService {
 
-    public JpaAccountService(EntityManagerFactory emf) {
-        super(emf, Account.class);
+    public JpaAccountService(SessionManager sm) {
+        super(sm, Account.class);
     }
 
     @Override
     public void deposit(Integer id, double amount) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = sm.getCurrentSession();
 
         try {
 
@@ -48,7 +48,7 @@ public class JpaAccountService extends AbstractJpaService<Account> implements Ac
     @Override
     public void withdraw(Integer id, double amount) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = sm.getCurrentSession();
 
         try {
 
@@ -81,7 +81,7 @@ public class JpaAccountService extends AbstractJpaService<Account> implements Ac
     @Override
     public void transfer(Integer srcId, Integer dstId, double amount) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = sm.getCurrentSession();
 
         try {
 

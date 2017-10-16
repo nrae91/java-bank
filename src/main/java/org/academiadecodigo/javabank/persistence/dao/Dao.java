@@ -1,10 +1,10 @@
-package org.academiadecodigo.javabank.services;
+package org.academiadecodigo.javabank.persistence.dao;
 
 import org.academiadecodigo.javabank.model.AbstractModel;
 
 import java.util.List;
 
-public interface CRUDService<T extends AbstractModel> {
+public interface Dao<T extends AbstractModel> {
 
     List<T> findAll();
 

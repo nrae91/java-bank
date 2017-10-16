@@ -12,14 +12,14 @@ import java.util.Set;
 
 public class JpaCustomerService extends AbstractJpaService<Customer> implements CustomerService {
 
-    public JpaCustomerService(EntityManagerFactory emf) {
-        super(emf, Customer.class);
+    public JpaCustomerService(SessionManager sm) {
+        super(sm, Customer.class);
     }
 
     @Override
     public double getBalance(Integer id) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = sm.getCurrentSession();
 
         try {
 
@@ -48,7 +48,7 @@ public class JpaCustomerService extends AbstractJpaService<Customer> implements 
     @Override
     public Set<Integer> getCustomerAccountIds(Integer id) {
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = sm.getCurrentSession();
 
         try {
 
