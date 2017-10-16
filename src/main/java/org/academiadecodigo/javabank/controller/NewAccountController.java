@@ -22,10 +22,10 @@ public class NewAccountController extends AbstractController {
 
         Account newAccount = accountFactory.createAccount(AccountType.CHECKING);
 
-        accountService.add(newAccount);
         authService.getAccessingCustomer().addAccount(newAccount);
+        Account account = accountService.add(newAccount);
 
-        return newAccount.getId();
+        return account.getId();
     }
 
     public Integer getNewAccountId() {

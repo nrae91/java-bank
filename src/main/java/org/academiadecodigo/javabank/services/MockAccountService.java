@@ -11,13 +11,15 @@ public class MockAccountService implements AccountService {
 
     private Map<Integer, Account> accountMap = new HashMap<>();
 
-    public void add(Account account) {
+    public Account add(Account account) {
 
         if (account.getId() == null) {
             account.setId(getNextId());
         }
 
         accountMap.put(account.getId(), account);
+
+        return account;
     }
 
     public void deposit(int id, double amount) {
