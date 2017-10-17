@@ -108,11 +108,13 @@ public class DaoAccountService  implements AccountService {
     @Override
     public Account saveOrUpdate(Account account) {
 
+        Account savedAccount = null;
+
         try {
 
             tm.beginWrite();
 
-            dao.saveOrUpdate(account);
+            savedAccount = dao.saveOrUpdate(account);
 
             tm.commit();
 
@@ -121,6 +123,6 @@ public class DaoAccountService  implements AccountService {
             tm.rollback();
         }
 
-        return account;
+        return savedAccount;
     }
 }

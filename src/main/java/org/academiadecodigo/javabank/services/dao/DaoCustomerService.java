@@ -27,6 +27,7 @@ public class DaoCustomerService implements CustomerService {
         double balance = 0;
 
         try {
+
             tm.beginRead();
 
             Customer customer = dao.findById(id);
@@ -82,21 +83,17 @@ public class DaoCustomerService implements CustomerService {
 
     public Customer findById(Integer id) {
 
-        Customer customer = null;
-
         try {
 
             tm.beginRead();
 
-            customer = findById(id);
+            return dao.findById(id);
+
+
+        } finally {
 
             tm.commit();
-
-        } catch(TransactionException ex) {
-
-            tm.rollback();
         }
 
-        return customer;
     }
 }

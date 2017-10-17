@@ -54,9 +54,7 @@ public abstract class JpaGenericDao<T extends AbstractModel> implements Dao<T> {
 
             EntityManager em = sm.getCurrentSession();
 
-            em.getTransaction().begin();
             T savedObject = em.merge(modelObject);
-            em.getTransaction().commit();
 
             return savedObject;
 
