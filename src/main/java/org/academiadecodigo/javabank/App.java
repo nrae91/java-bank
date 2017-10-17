@@ -2,16 +2,12 @@ package org.academiadecodigo.javabank;
 
 import org.academiadecodigo.javabank.controller.Controller;
 import org.academiadecodigo.javabank.persistence.H2WebServer;
-import org.academiadecodigo.javabank.persistence.dao.AccountDao;
-import org.academiadecodigo.javabank.persistence.dao.CustomerDao;
-import org.academiadecodigo.javabank.persistence.dao.GenericDao;
-import org.academiadecodigo.javabank.services.jpa.JpaAccountService;
-import org.academiadecodigo.javabank.services.jpa.JpaCustomerService;
+import org.academiadecodigo.javabank.persistence.dao.JpaAccountDao;
+import org.academiadecodigo.javabank.persistence.dao.JpaCustomerDao;
+import org.academiadecodigo.javabank.services.dao.DaoAccountService;
+import org.academiadecodigo.javabank.services.dao.DaoCustomerService;
+import org.academiadecodigo.javabank.services.jpa.*;
 import org.academiadecodigo.javabank.services.AuthServiceImpl;
-import org.academiadecodigo.javabank.services.jpa.JpaSessionManager;
-import org.academiadecodigo.javabank.services.jpa.SessionManager;
-import org.academiadecodigo.javabank.services.mock.MockAccountService;
-import org.h2.tools.Server;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -30,9 +26,10 @@ public class App {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory(Config.PERSISTENCE_UNIT);
 
             SessionManager sm = new JpaSessionManager(emf);
+            TransactionManager tm = new JpaTransactionManager(sm);
 
             App app = new App();
-            app.bootStrap(sm);
+            app.bootStrap(tm,sm);
 
             emf.close();
             h2WebServer.stop();
@@ -42,13 +39,13 @@ public class App {
         }
     }
 
-    private void bootStrap(SessionManager sm) {
+    private void bootStrap(TransactionManager tm, SessionManager sm) {
 
         Bootstrap bootstrap = new Bootstrap();
 
         bootstrap.setAuthService(new AuthServiceImpl());
-        bootstrap.setAccountService(new JpaAccountService(sm), new AccountDao());
-        bootstrap.setCustomerService(new JpaCustomerService(sm), new CustomerDao());
+        bootstrap.setAccountService(new DaoAccountService(tm, new JpaAccountDao(sm)));
+        bootstrap.setCustomerService(new DaoCustomerService(tm, new JpaCustomerDao(sm)));
 
         Controller controller = bootstrap.wireObjects();
 

@@ -25,8 +25,8 @@ public class JpaCustomerServiceIntegrationTest extends JpaIntegrationTestHelper 
     @Before
     public void setUp() {
 
-        cs = new JpaCustomerService(emf);
-        em = emf.createEntityManager();
+        //cs = new JpaCustomerService(emf);
+        //em = emf.createEntityManager();
     }
 
     @Test

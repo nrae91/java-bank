@@ -20,7 +20,7 @@ public class JpaAccountServiceIntegrationTest extends JpaIntegrationTestHelper {
 
     @Before
     public void setup() {
-        as = new JpaAccountService(emf);
+       // as = new JpaAccountService(emf);
     }
 
 

@@ -3,14 +3,14 @@ package org.academiadecodigo.javabank.services.jpa;
 import org.academiadecodigo.javabank.model.Customer;
 import org.academiadecodigo.javabank.model.account.Account;
 import org.academiadecodigo.javabank.services.CustomerService;
+import org.academiadecodigo.javabank.services.dao.JpaGenericDao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class JpaCustomerService extends AbstractJpaService<Customer> implements CustomerService {
+public class JpaCustomerService extends JpaGenericDao<Customer> implements CustomerService {
 
     public JpaCustomerService(SessionManager sm) {
         super(sm, Customer.class);
