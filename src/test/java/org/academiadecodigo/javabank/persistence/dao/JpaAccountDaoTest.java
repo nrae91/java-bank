@@ -1,11 +1,10 @@
-package org.academiadecodigo.javabank.persistence.jpa.dao;
+package org.academiadecodigo.javabank.persistence.dao;
 
 import org.academiadecodigo.javabank.model.account.Account;
 import org.academiadecodigo.javabank.model.account.CheckingAccount;
 import org.academiadecodigo.javabank.model.account.SavingsAccount;
 import org.academiadecodigo.javabank.persistence.TransactionException;
 import org.academiadecodigo.javabank.persistence.dao.jpa.JpaAccountDao;
-import org.academiadecodigo.javabank.persistence.jpa.JpaSessionManager;
 import org.hibernate.HibernateException;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,19 +21,14 @@ import static org.mockito.Mockito.*;
 
 public class JpaAccountDaoTest {
 
-    private JpaSessionManager sm;
     private JpaAccountDao customerDao;
     private EntityManager em;
 
     @Before
     public void setup() {
 
-        sm = mock(JpaSessionManager.class);
         em = mock(EntityManager.class);
         customerDao = new JpaAccountDao();
-        customerDao.setSm(sm);
-
-        when(sm.getCurrentSession()).thenReturn(em);
 
     }
 
@@ -57,9 +51,6 @@ public class JpaAccountDaoTest {
         List<Account> customers = customerDao.findAll();
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(typedQuery, times(1)).getResultList();
         assertEquals(mockAccounts, customers);
     }
@@ -85,9 +76,6 @@ public class JpaAccountDaoTest {
         customerDao.findAll();
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(typedQuery.getResultList(), times(1));
 
     }
@@ -105,9 +93,6 @@ public class JpaAccountDaoTest {
         Account customer = customerDao.findById(fakeId);
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(em, times(1)).find(Account.class, fakeId);
         assertEquals(fakeAccount, customer);
 
@@ -126,9 +111,6 @@ public class JpaAccountDaoTest {
         Account customer = customerDao.findById(fakeId);
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(em, times(1)).find(Account.class, fakeId);
         assertEquals(fakeAccount, customer);
 
@@ -145,9 +127,6 @@ public class JpaAccountDaoTest {
         customerDao.findById(fakeId);
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(em, times(1)).find(Account.class, fakeId);
 
     }
@@ -163,9 +142,6 @@ public class JpaAccountDaoTest {
         Account customer = customerDao.saveOrUpdate(fakeAccount);
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(em, times(1)).merge(any(Account.class));
         assertEquals(fakeAccount, customer);
 
@@ -182,9 +158,6 @@ public class JpaAccountDaoTest {
         Account customer = customerDao.saveOrUpdate(fakeAccount);
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(em, times(1)).merge(any(Account.class));
         assertEquals(fakeAccount, customer);
 
@@ -201,9 +174,6 @@ public class JpaAccountDaoTest {
         customerDao.saveOrUpdate(fakeAccount);
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(em, times(1)).merge(any(Account.class));
     }
 
@@ -220,9 +190,6 @@ public class JpaAccountDaoTest {
         customerDao.delete(fakeId);
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(em, times(1)).remove(fakeAccount);
 
     }
@@ -240,9 +207,6 @@ public class JpaAccountDaoTest {
         customerDao.delete(fakeId);
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(em, times(1)).remove(fakeAccount);
 
     }
@@ -258,9 +222,6 @@ public class JpaAccountDaoTest {
         customerDao.delete(fakeId);
 
         // verify
-        verify(sm, times(1)).getCurrentSession();
-        verify(sm, never()).stopSession();
-        verify(sm, never()).startSession();
         verify(em, times(1)).remove(any(Account.class));
 
 

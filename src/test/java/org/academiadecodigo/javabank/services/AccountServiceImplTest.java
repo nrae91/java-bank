@@ -4,9 +4,7 @@ import org.academiadecodigo.javabank.model.account.Account;
 import org.academiadecodigo.javabank.model.account.CheckingAccount;
 import org.academiadecodigo.javabank.model.account.SavingsAccount;
 import org.academiadecodigo.javabank.persistence.TransactionException;
-import org.academiadecodigo.javabank.persistence.TransactionManager;
 import org.academiadecodigo.javabank.persistence.dao.AccountDao;
-import org.academiadecodigo.javabank.persistence.jpa.JpaTransactionManager;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,18 +13,15 @@ import static org.mockito.Mockito.*;
 
 public class AccountServiceImplTest {
 
-    private TransactionManager tx;
     private AccountDao accountDao;
     private AccountServiceImpl accountService;
 
     @Before
     public void setup() {
 
-        tx = mock(JpaTransactionManager.class);
         accountDao = mock(AccountDao.class);
 
         accountService = new AccountServiceImpl();
-        accountService.setTransactionManager(tx);
         accountService.setAccountDao(accountDao);
 
     }
@@ -44,9 +39,6 @@ public class AccountServiceImplTest {
         int id = accountService.add(new CheckingAccount());
 
         // verify
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).commit();
-        verify(tx, never()).rollback();
         assertEquals(fakeId, id);
 
 
@@ -65,9 +57,6 @@ public class AccountServiceImplTest {
         int id = accountService.add(new SavingsAccount());
 
         // verify
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).commit();
-        verify(tx, never()).rollback();
         assertEquals(fakeId, id);
     }
 
@@ -81,9 +70,6 @@ public class AccountServiceImplTest {
         accountService.add(new SavingsAccount());
 
         // verify
-        verify(tx, times(1)).beginWrite();
-        verify(tx, never()).commit();
-        verify(tx, times(1)).rollback();
 
     }
 
@@ -100,9 +86,6 @@ public class AccountServiceImplTest {
         accountService.deposit(fakeId, amount);
 
         // verify
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).commit();
-        verify(tx, never()).rollback();
         verify(fakeAccount, times(1)).credit(amount);
         verify(accountDao, times(1)).saveOrUpdate(fakeAccount);
     }
@@ -117,9 +100,6 @@ public class AccountServiceImplTest {
         accountService.deposit(1, 100);
 
         // verify
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).rollback();
-        verify(tx, never()).commit();
 
     }
 
@@ -133,9 +113,6 @@ public class AccountServiceImplTest {
         accountService.deposit(1, 100);
 
         // verify
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).rollback();
-        verify(tx, never()).commit();
 
     }
 
@@ -152,9 +129,6 @@ public class AccountServiceImplTest {
         accountService.withdraw(fakeId, amount);
 
         // verify
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).commit();
-        verify(tx, never()).rollback();
         verify(fakeAccount, times(1)).debit(amount);
         verify(accountDao, times(1)).saveOrUpdate(fakeAccount);
     }
@@ -169,8 +143,6 @@ public class AccountServiceImplTest {
         accountService.withdraw(1, 100);
 
         // verify
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).rollback();
 
     }
 
@@ -184,9 +156,6 @@ public class AccountServiceImplTest {
         accountService.withdraw(1, 100);
 
         // verify
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).rollback();
-        verify(tx, never()).commit();
 
     }
 
@@ -208,9 +177,6 @@ public class AccountServiceImplTest {
         accountService.transfer(fakeSrcId, fakeDstId, amount);
 
         // validate
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).commit();
-        verify(tx, never()).rollback();
         verify(accountDao, times(1)).saveOrUpdate(fakeSrcAccount);
         verify(accountDao, times(1)).saveOrUpdate(fakeDstAccount);
         verify(fakeSrcAccount, times(1)).canDebit(amount);
@@ -238,9 +204,6 @@ public class AccountServiceImplTest {
         accountService.transfer(fakeSrcId, fakeDstId, amount);
 
         // validate
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).commit();
-        verify(tx, never()).rollback();
         verify(accountDao, times(1)).saveOrUpdate(fakeSrcAccount);
         verify(accountDao, times(1)).saveOrUpdate(fakeDstAccount);
         verify(fakeSrcAccount, times(1)).canDebit(amount);
@@ -265,9 +228,6 @@ public class AccountServiceImplTest {
         accountService.transfer(fakeSrcId, fakeDstId, amount);
 
         // validate
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).commit();
-        verify(tx, never()).rollback();
         verify(accountDao, times(1)).saveOrUpdate(fakeSrcAccount);
         verify(accountDao, times(1)).saveOrUpdate(fakeDstAccount);
         verify(fakeDstAccount, times(1)).canCredit(amount);
@@ -289,9 +249,6 @@ public class AccountServiceImplTest {
         accountService.transfer(fakeSrcId, fakeDstId, amount);
 
         // validate
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).rollback();
-        verify(tx, never()).commit();
 
     }
 
@@ -309,10 +266,6 @@ public class AccountServiceImplTest {
         // exercise
         accountService.transfer(fakeSrcId, fakeDstId, amount);
 
-        // validate
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).rollback();
-        verify(tx, never()).commit();
 
     }
 
@@ -325,9 +278,5 @@ public class AccountServiceImplTest {
         // exercise
         accountService.transfer(1, 2, 100);
 
-        // validate
-        verify(tx, times(1)).beginWrite();
-        verify(tx, times(1)).rollback();
-        verify(tx, never()).commit();
     }
 }

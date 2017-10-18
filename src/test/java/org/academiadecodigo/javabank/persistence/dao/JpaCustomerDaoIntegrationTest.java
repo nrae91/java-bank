@@ -1,14 +1,16 @@
-package org.academiadecodigo.javabank.persistence.jpa.dao;
+package org.academiadecodigo.javabank.persistence.dao;
 
 import org.academiadecodigo.javabank.model.Customer;
 import org.academiadecodigo.javabank.model.account.Account;
 import org.academiadecodigo.javabank.model.account.CheckingAccount;
 import org.academiadecodigo.javabank.model.account.SavingsAccount;
+import org.academiadecodigo.javabank.persistence.JpaIntegrationTestHelper;
 import org.academiadecodigo.javabank.persistence.dao.jpa.JpaCustomerDao;
-import org.academiadecodigo.javabank.persistence.jpa.JpaIntegrationTestHelper;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -16,6 +18,8 @@ import static org.junit.Assert.*;
 
 public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
 
+    @PersistenceContext
+    protected EntityManager em;
     private final static Integer INVALID_ID = 9999;
     private final static double DOUBLE_DELTA = 0.1;
 
@@ -24,7 +28,7 @@ public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
     @Before
     public void setup() {
         customerDao = new JpaCustomerDao();
-        customerDao.setSm(sm);
+
     }
 
     @Test
@@ -70,12 +74,10 @@ public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
     public void testFindAllFail() {
 
         // setup
-        tx.beginWrite();
-        Query query = sm.getCurrentSession().createQuery("delete from Account ");
+        Query query = em.createQuery("delete from Account ");
         query.executeUpdate();
-        query = sm.getCurrentSession().createQuery("delete from Customer");
+        query = em.createQuery("delete from Customer");
         query.executeUpdate();
-        tx.commit();
 
         // exercise
         List<Customer> customers = customerDao.findAll();
@@ -95,13 +97,11 @@ public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
         newCustomer.setName(name);
 
         // exercise
-        tx.beginWrite();
         Customer addedCustomer = customerDao.saveOrUpdate(newCustomer);
-        tx.commit();
 
         // verify
         assertNotNull("customer not added", addedCustomer);
-        Customer customer = sm.getCurrentSession().find(Customer.class, addedCustomer.getId());
+        Customer customer = em.find(Customer.class, addedCustomer.getId());
         assertNotNull("Customer not found", customer);
 
     }
@@ -122,13 +122,11 @@ public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
         newCustomer.addAccount(sa);
 
         // exercise
-        tx.beginWrite();
         Customer addedCustomer = customerDao.saveOrUpdate(newCustomer);
-        tx.commit();
 
         // verify
         assertNotNull("customer not added", addedCustomer);
-        Customer customer = sm.getCurrentSession().find(Customer.class, addedCustomer.getId());
+        Customer customer = em.find(Customer.class, addedCustomer.getId());
         assertNotNull("customer not found", addedCustomer);
         assertNotNull("customer accounts not found", customer.getAccounts());
         assertEquals("customer number of accounts wrong", newCustomer.getAccounts().size(), customer.getAccounts().size());
@@ -143,16 +141,14 @@ public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
         // setup
         int id = 1;
         String name = "updated customer";
-        Customer customer = sm.getCurrentSession().find(Customer.class, id);
+        Customer customer = em.find(Customer.class, id);
         customer.setName(name);
 
         // exercise
-        tx.beginWrite();
         customerDao.saveOrUpdate(customer);
-        tx.commit();
 
         // verify
-        customer = sm.getCurrentSession().find(Customer.class, id);
+        customer = em.find(Customer.class, id);
         assertEquals("customer name is wrong", name, customer.getName());
 
     }
@@ -163,17 +159,15 @@ public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
         // setup
         int id = 1;
         String name = "updated customer";
-        Customer existingCustomer = sm.getCurrentSession().find(Customer.class, id);
+        Customer existingCustomer = em.find(Customer.class, id);
         existingCustomer.setName(name);
         existingCustomer.getAccounts().get(0).canCredit(100);
 
         // exercise
-        tx.beginWrite();
         customerDao.saveOrUpdate(existingCustomer);
-        tx.commit();
 
         // verify
-        Customer customer = sm.getCurrentSession().find(Customer.class, id);
+        Customer customer = em.find(Customer.class, id);
         assertEquals("customer name is wrong", name, customer.getName());
         assertEquals("number of accounts is wrong", 2, customer.getAccounts().size());
         assertEquals("account balance is wrong", 100, customer.getAccounts().get(0).getBalance(), DOUBLE_DELTA);
@@ -186,17 +180,15 @@ public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
         // setup
         int id = 1;
         String name = "updated customer";
-        Customer existingCustomer = sm.getCurrentSession().find(Customer.class, id);
+        Customer existingCustomer = em.find(Customer.class, id);
         existingCustomer.setName(name);
         existingCustomer.removeAccount(existingCustomer.getAccounts().get(1));
 
         // exercise
-        tx.beginWrite();
         customerDao.saveOrUpdate(existingCustomer);
-        tx.commit();
 
         // verify
-        Customer customer = sm.getCurrentSession().find(Customer.class, id);
+        Customer customer = em.find(Customer.class, id);
         assertEquals("customer name is wrong", name, customer.getName());
         assertEquals("number of accounts is wrong", 1, customer.getAccounts().size());
         assertEquals("account balance is wrong", 100, customer.getAccounts().get(0).getBalance(), DOUBLE_DELTA);
@@ -210,12 +202,10 @@ public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
         int id = 1;
 
         // exercise
-        tx.beginWrite();
         customerDao.delete(id);
-        tx.commit();
 
         // verify
-        Customer customer = sm.getCurrentSession().find(Customer.class, id);
+        Customer customer = em.find(Customer.class, id);
         assertNull("should be null", customer);
     }
 
@@ -226,12 +216,10 @@ public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
         int id = 4;
 
         // exercise
-        tx.beginWrite();
         customerDao.delete(id);
-        tx.commit();
 
         // verify
-        Customer customer = sm.getCurrentSession().find(Customer.class, id);
+        Customer customer = em.find(Customer.class, id);
         assertNull("should be null", customer);
     }
 
@@ -239,8 +227,6 @@ public class JpaCustomerDaoIntegrationTest extends JpaIntegrationTestHelper {
     public void testDeleteInvalid() {
 
         // exercise
-        tx.beginWrite();
         customerDao.delete(INVALID_ID);
-        tx.commit();
     }
 }
