@@ -6,10 +6,6 @@ public class JpaTransactionManager implements TransactionManager {
 
     private JpaSessionManager sm;
 
-    public JpaTransactionManager(JpaSessionManager sm) {
-        this.sm = sm;
-    }
-
     public void beginRead() {
        sm.startSession();
     }
@@ -34,5 +30,9 @@ public class JpaTransactionManager implements TransactionManager {
         }
 
         sm.stopSession();
+    }
+
+    public void setSm(JpaSessionManager sm) {
+        this.sm = sm;
     }
 }

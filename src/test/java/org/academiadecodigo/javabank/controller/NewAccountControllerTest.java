@@ -59,7 +59,7 @@ public class NewAccountControllerTest {
         // init the controller (which creates a new account)
         newAccountController.init();
 
-        // in the end, check if the view has been shown
+        // in the end, check if the presentation has been shown
         verify(view).show();
 
         // verify that account has been created through the account factory

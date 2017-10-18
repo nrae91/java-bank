@@ -69,7 +69,7 @@ public class MainControllerTest {
         // verify controller 2 has been inited
         verify(ctrl2).init();
 
-        // verify that view has been shown both times
+        // verify that presentation has been shown both times
         verify(view, times(2)).show();
     }
 

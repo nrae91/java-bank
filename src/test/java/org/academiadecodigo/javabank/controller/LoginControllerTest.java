@@ -20,7 +20,7 @@ public class LoginControllerTest {
 
         loginController = new LoginController();
 
-        // mock auth service, next controller and view
+        // mock auth service, next controller and presentation
         authService = mock(AuthService.class);
         loginView = mock(View.class);
         nextController = mock(Controller.class);
@@ -56,7 +56,7 @@ public class LoginControllerTest {
         // verify nextController's init method has been called
         verify(nextController).init();
 
-        // verify that login view was never presented
+        // verify that login presentation was never presented
         verify(loginView, never()).show();
     }
 

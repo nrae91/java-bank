@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Somehow choose among the three existing persistency unit profiles -->
+    <import resource="persistence-dev.xml"/>
+    <!--<import resource="persistence-test.xml"/>
+    <import resource="persistence-prod.xml"/>-->
+
+    <import resource="managers.xml"/>
+    <import resource="daos.xml"/>
+
+</beans>

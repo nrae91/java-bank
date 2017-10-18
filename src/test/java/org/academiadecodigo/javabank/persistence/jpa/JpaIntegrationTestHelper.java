@@ -15,8 +15,8 @@ public class JpaIntegrationTestHelper {
     @Before
     public void init() {
         emf = Persistence.createEntityManagerFactory("test");
-        sm = new JpaSessionManager(emf);
-        tx = new JpaTransactionManager(sm);
+        sm = new JpaSessionManager();
+        tx = new JpaTransactionManager();
 
         tx.beginRead();
     }

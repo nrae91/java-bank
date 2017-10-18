@@ -28,7 +28,7 @@ public class Bootstrap {
         // wire services
         authService.setCustomerService(customerService);
 
-        // wire login controller and view
+        // wire login controller and presentation
         LoginController loginController = new LoginController();
         LoginView loginView = new LoginView();
         loginController.setView(loginView);
@@ -36,7 +36,7 @@ public class Bootstrap {
         loginView.setLoginController(loginController);
         loginView.setPrompt(prompt);
 
-        // wire main controller and view
+        // wire main controller and presentation
         MainController mainController = new MainController();
         MainView mainView = new MainView();
         mainView.setPrompt(prompt);
@@ -45,7 +45,7 @@ public class Bootstrap {
         mainController.setAuthService(authService);
         loginController.setNextController(mainController);
 
-        // wire balance controller and view
+        // wire balance controller and presentation
         BalanceController balanceController = new BalanceController();
         BalanceView balanceView = new BalanceView();
         balanceView.setBalanceController(balanceController);
@@ -53,7 +53,7 @@ public class Bootstrap {
         balanceController.setCustomerService(customerService);
         balanceController.setAuthService(authService);
 
-        // wire new account controller and view
+        // wire new account controller and presentation
         NewAccountView newAccountView = new NewAccountView();
         NewAccountController newAccountController = new NewAccountController();
         newAccountController.setAccountService(accountService);
