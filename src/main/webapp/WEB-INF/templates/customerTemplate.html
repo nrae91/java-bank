@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JavaBank</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+        <tr>
+            <td th:text="${customer.id}"></td>
+            <td th:text="${customer.firstName}"></td>
+            <td th:text="${customer.lastName}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.phone}"></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <h3 th:text="${ 'Customer ' + customer.getFirstName() + ' accounts:'}">Customer</h3>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Account Type</th>
+            <th>Balance</th>
+        </tr>
+        <tr th:each="account : ${customer.getAccounts()}">
+            <td th:text="${account.id}"></td>
+            <td th:text="${account.accountType}"></td>
+            <td th:text="${account.getBalance()}"></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <button onclick="window.location.href='/ne/javabank/customer/list/'">Back</button>
+</div>
+</body>
+</html>
