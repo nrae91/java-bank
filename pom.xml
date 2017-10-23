@@ -132,7 +132,7 @@
                 <version>2.2</version>
                 <configuration>
                     <!--<url>http://novabase.academiadecodigo.org:8080/manager/text</url>-->
-                    <url>http://localhost:8090/manager/text</url>
+                    <url>http://localhost:8080/manager/text</url>
                     <server>novabase</server>
                     <path>/javabank</path>
                 </configuration>

@@ -1,7 +1,9 @@
 package org.academiadecodigo.javabank.services;
 
+import org.academiadecodigo.javabank.factories.AccountFactory;
 import org.academiadecodigo.javabank.model.Customer;
 import org.academiadecodigo.javabank.model.account.Account;
+import org.academiadecodigo.javabank.model.account.AccountType;
 import org.academiadecodigo.javabank.persistence.dao.CustomerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,4 +77,12 @@ public class CustomerServiceImpl implements CustomerService {
     public void delete(Integer id) {
         customerDao.delete(id);
     }
+
+    @Transactional
+    @Override
+    public Customer save(Customer customer) {
+        customerDao.saveOrUpdate(customer);
+        return customer;
+    }
+
 }
